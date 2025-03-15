@@ -76,6 +76,7 @@ public class gotosettings extends Activity {
         i.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings"));
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         startActivity(i);
+        finish();
     }
 
 }
