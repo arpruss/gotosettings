@@ -6,9 +6,12 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -30,6 +33,7 @@ import android.widget.Toast;
 public class gotosettings extends Activity {
 
     private SharedPreferences options;
+    static final String SETTINGS = "com.android.settings";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,8 +76,13 @@ public class gotosettings extends Activity {
     }
 
     private void goToSettings() {
-        Intent i = new Intent();
-        i.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings"));
+        PackageManager pm = getPackageManager();
+        Intent i = pm.getLaunchIntentForPackage(SETTINGS);
+        if (i == null) {
+            i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.parse("package:"+SETTINGS));
+            i.setPackage(SETTINGS);
+        }
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         startActivity(i);
         finish();
