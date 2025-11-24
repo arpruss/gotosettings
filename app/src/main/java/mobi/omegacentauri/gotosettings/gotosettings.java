@@ -77,14 +77,18 @@ public class gotosettings extends Activity {
 
     private void goToSettings() {
         PackageManager pm = getPackageManager();
-        Intent i = pm.getLaunchIntentForPackage(SETTINGS);
-        if (i == null) {
-            i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:"+SETTINGS));
-            i.setPackage(SETTINGS);
+        try {
+            Intent i = pm.getLaunchIntentForPackage(SETTINGS);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            startActivity(i);
         }
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
-        startActivity(i);
+        catch(Exception e) {
+            Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.parse("package:" + SETTINGS));
+            i.setPackage(SETTINGS);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+            startActivity(i);
+        }
         finish();
     }
 
