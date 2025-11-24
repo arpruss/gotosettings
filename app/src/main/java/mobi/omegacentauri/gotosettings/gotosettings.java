@@ -17,6 +17,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.TabStopSpan;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -58,7 +59,7 @@ public class gotosettings extends Activity {
     private void message() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle("Go To Settings");
-        b.setMessage("You can now go to the system Settings option.");
+        b.setMessage("You can now go to the system Settings option. On v81+ firmware, you may need to press the OPEN button on the next screen.");
         b.setNeutralButton("Go", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
